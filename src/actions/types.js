@@ -1,0 +1,1 @@
+export const SAVE_PROFILE_PIC = 'SAVE_PROFILE_PIC';

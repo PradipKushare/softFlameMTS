@@ -13,6 +13,8 @@ const Login = React.lazy(() => import('./views/Login/Login'));
 const Register = React.lazy(() => import('./views/Register/Register'));
 const ForgotPassword = React.lazy(() => import('./views/Login/ForgotPassword'));
 const StartTest = React.lazy(() => import('./views/MyTest/StartTest/StartTest'));
+const ResetPassword = React.lazy(() => import('./views/Login/ResetPassword'));
+
 
 
 
@@ -32,6 +34,8 @@ const routes = [
     { path: '/register', exact: true, name: 'Register', component: Register },  
     { path: '/forgot-password', exact: true, name: 'ForgotPassword', component: ForgotPassword },  
     { path: '/start-test', exact: true, name: 'StartTest', component: StartTest },  
+    { path: '/reset-password/:email', exact: true, name: 'ResetPassword', component: ResetPassword },  
+    
 
     
 ];

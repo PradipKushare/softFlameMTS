@@ -4,7 +4,15 @@ import {Card} from 'react-bootstrap';
 import ChangeProfilePic from './ChangeProfilePic';
 import PersonalInfo from './PersonalInfo';
 import AccountInfo from './AccountInfo';
+
 class MyProfile extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: true
+      };
+    }
+
 
 render() {   
    

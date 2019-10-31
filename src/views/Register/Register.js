@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import MTSlogo from '../../assets/img/brand/MTS logo login.png';
-import { Link } from 'react-router-dom';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; 
 
-import { CountryDropdown, RegionDropdown } from 'react-indian-state-region-selector';
+import { CountryDropdown } from 'react-indian-state-region-selector';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+
+import CustomLoader from '../sub_parts/CustomLoader';
+
+import { postRegister } from '../../actions/homepage';
+var moment = require('moment');
 
 
 
@@ -42,15 +49,18 @@ class Register extends Component {
         myStyle:[],
         err_class :'',
         successMessage:'',
+        newBirthDate:'',
 
      };
        this._handleChange            = this._handleChange.bind(this);
        this._handleValidate       =       this._handleValidate.bind(this);
        this.handleChangeBirth            = this.handleChangeBirth.bind(this);
         this._handleKeyPress        =     this._handleKeyPress.bind(this);
+        
 
 
     }
+
 
    _handleKeyPress(e){
     const re = /[0-9]+/g;
@@ -70,6 +80,8 @@ class Register extends Component {
     var err_password = this.state.err_password;
     var err_confirmPassword = this.state.err_confirmPassword;
     var err_birthdate = this.state.err_birthdate;
+    var err_districtName = this.state.err_districtName;
+
 
     if (evt.target.name == 'firstName') {
       err_firstName = '';
@@ -82,6 +94,9 @@ class Register extends Component {
     }
     if (evt.target.name == 'stateName') {
       err_stateName = '';
+    }
+    if (evt.target.name == 'districtName') {
+      err_districtName = '';
     }
     if (evt.target.name == 'pinCode') {
       err_pinCode = '';
@@ -110,11 +125,12 @@ class Register extends Component {
                     err_password:err_password,
                     err_confirmPassword:err_confirmPassword,
                     err_birthdate:err_birthdate,
+                    err_districtName:err_districtName
         });
   }
 
  _handleValidate(evt){
-  console.log(this.state.gender)
+  console.log(this.state.birthdate)
   var err_firstName = '';
   var err_lastName = '';
   var err_address = '';
@@ -150,10 +166,10 @@ class Register extends Component {
       if (this.state.mobileNumber == '' || this.state.mobileNumber.length < 10) {
       err_mobileNumber = 'Enter valid 10 Digit Pincode';
    }
-      if (regEmail.test(this.state.emailAddress) == false){
+      if (regEmail.test(this.state.emailAddress) == true){
       err_emailAddress = 'enter valid email address';
    }
-      if (this.state.password == '' || reWhiteSpace.test(this.state.password) == true) {
+      if (this.state.password == '') {
       err_password = 'Please Enter Valid Password';
    }
      if (this.state.birthdate == '' || reWhiteSpace.test(this.state.birthdate) == true) {
@@ -176,9 +192,10 @@ class Register extends Component {
                       err_birthdate:err_birthdate });
    }else{
     if (this.state.confirmPassword !== this.state.password) {
-      this.setState({ err_confirmPassword:'Recomfirmation password doesn\'t' });
+      this.setState({ err_confirmPassword:'Recomfirmation password doesn\'t match' });
     }else{
-      this.setState({ err_confirmPassword:'' });
+      
+       this.setState({ err_confirmPassword:'' });
       this._handleSubmit();
     }
    }
@@ -186,49 +203,44 @@ class Register extends Component {
 
 _handleSubmit(){
   let that = this;
-  var firstName = this.state.firstName;
-  var lastName = this.state.lastName;
-  var address = this.state.address;
-  var stateName = this.state.stateName;
-  var districtName = this.state.districtName;
-  var pinCode = this.state.pinCode;
-  var mobileNumber = this.state.mobileNumber;
-  var emailAddress = this.state.emailAddress;
-  var password = this.state.password;
-  var confirmPassword = this.state.confirmPassword;
-  var birthdate = this.state.birthdate;
-  var gender = this.state.gender;
-
-var saveData = {
-      firstName:firstName,
-      lastName:lastName,
-      address:address,
-      stateName:stateName,
-      districtName:districtName,
-      pinCode:pinCode,
-      mobileNumber:mobileNumber,
-      emailAddress:emailAddress,
-      password:password,
-      confirmPassword:confirmPassword,
-      birthdate:birthdate,
-      gender:gender,
-}
-
-  localStorage.setItem('registerData',JSON.stringify(saveData));
-    that.setState({successMessage:'Registration Successfully..!',
-                   myStyle:{color:'green',margin:'5px'},
-                   err_class :'col-md-12 alert alert-success text-center' });
-    setTimeout(function(){ 
-        that.props.history.push('/login');},
-      2000);
+  let birthdate = moment(this.state.birthdate).format('DD/MM/YYYY');
+  let post_data = {
+        firstname:this.state.firstName,
+        lastname:this.state.lastName,
+        address:this.state.address,
+        state:this.state.stateName,
+        district:this.state.districtName,
+        pincode:this.state.pinCode,
+        mobile_no:this.state.mobileNumber,
+        email:this.state.emailAddress,
+        password:this.state.password,
+        dob:birthdate,
+        gender:this.state.gender,
+  }
+      that.props.postRegister(post_data).then(response => { 
+        if (response.data.success) {
+            that.setState({successMessage:response.data.msg,
+                           myStyle:{color:'green',margin:'5px'},
+                           err_class :'col-md-12 alert alert-success text-center' });
+        setTimeout(function(){ 
+            that.props.history.push('/login');},
+          2000);
+        }else{
+          that.setState({successMessage:response.data.msg,
+                         myStyle:{color:'red',margin:'5px'},
+                         err_class :'col-md-12 alert alert-danger text-center' });
+        }
+      }).catch(function (error) {
+        console.log(error);
+    });  
 }
 
   selectCountry (val) {
     this.setState({ stateName: val,err_stateName:'' });
   }
  
-  handleChangeBirth(date){
-    this.setState({birthdate: date,err_birthdate:'' });
+  handleChangeBirth(dateIs){
+    this.setState({birthdate: dateIs,err_birthdate:'' });
   }
 
   render() {   
@@ -301,6 +313,9 @@ var saveData = {
                             <DatePicker
                               selected={this.state.birthdate}
                               placeholderText="Choose birthdate"
+                              peekNextMonth
+                              showMonthDropdown
+                              showYearDropdown
                               onChange={(date)=>this.handleChangeBirth(date)}
                               className="form-control"/>
                           </div>
@@ -344,6 +359,8 @@ var saveData = {
                       </div>
                     </div>
                     <hr />
+
+                      <CustomLoader loading={false}/>
 
                     <div className="form-group row">
                       <div className="col-6">
@@ -460,4 +477,8 @@ var saveData = {
         }
     }
 
-export default Register;
+  Register.propTypes = {
+    postRegister: PropTypes.func.isRequired,
+  }
+
+export default withRouter(connect(null, {postRegister})(Register));

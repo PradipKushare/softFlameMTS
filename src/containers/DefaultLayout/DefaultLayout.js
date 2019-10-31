@@ -1,8 +1,12 @@
 import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch,Link,browserHistory  } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { createBrowserHistory } from "history";
+
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { setProfileStore } from '../../actions/homepage';
 
 import {
   AppHeader,
@@ -19,9 +23,9 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 
+import tmp_image from '../../assets/img/default_user.jpg'
+
 const history = createBrowserHistory();
-
-
 
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 class DefaultLayout extends Component {
@@ -33,15 +37,31 @@ class DefaultLayout extends Component {
     this.props.history.push('/login')
   }
 
+  componentDidMount() {
+    this.props.setProfileStore(); 
+  }
   render() {
     let dispFlag = false;
-    const pathname = this.props.location.pathname;
-    if (pathname === '/login' || pathname === '/register' || pathname === '/forgot-password' || pathname === '/start-test') {
-      dispFlag = true;
-      document.body.classList.add('bg_darck');
+    let tmp_paths = ['login','register','forgot-password','start-test','reset-password']
+    const pathname = window.location.href;
+    for (var i = 0; i < tmp_paths.length; i++) {
+      if (pathname.includes('/'+tmp_paths[i])) {
+         dispFlag = true;
+          document.body.classList.add('bg_darck');
+        }else{
+          document.body.classList.remove('bg_darck');  
+        }
+      }
+
+    var default_user = '';
+    let saveProPic = localStorage.getItem('profile_pics');
+   if (saveProPic!== '' && saveProPic!== undefined) {
+      default_user = saveProPic;
     }else{
-      document.body.classList.remove('bg_darck');  
+      default_user = tmp_image;   
     }
+
+    let student_name = localStorage.getItem('student_name');
 
     return (
       <div className="app">
@@ -58,12 +78,12 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <div className="user-panel">
                 <div className="user_image">
-                    <img src="http://12mts.mocktestseries.in//site_data/uploads/student_profile_pic/default_user.jpg" className="img-circle mCS_img_loaded" alt="" />
+                    <img src={default_user} className="img-circle mCS_img_loaded" alt="" />
                 </div>
                 <div className="info">
                     <p> 
-                      <Link style={{color: '#FFF'}} to={'./login'}> pradip kushare</Link> </p>
-                    <Link to={'/'}> <i className="fa fa-circle text-success"></i> Online</Link>
+                      <Link style={{color: '#FFF'}} to={'./login'}> {student_name ? student_name : 'No user'}</Link> </p>
+                   <i className="fa fa-circle text-success"></i> Online
                 </div>
             </div>
 
@@ -127,4 +147,14 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+DefaultLayout.propTypes = {
+    setProfileStore:PropTypes.func.isRequired,
+  }
+
+   function mapStateToProps(state) {
+    return {
+      saveProPic:state.save_profile.saveProPic,
+    };
+  }
+
+export default withRouter(connect(mapStateToProps,{setProfileStore} )(DefaultLayout));

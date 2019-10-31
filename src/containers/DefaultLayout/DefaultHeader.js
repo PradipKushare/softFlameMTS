@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {  UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, } from 'reactstrap';
+
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+
 
 import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/cc.png'
-import default_user from '../../assets/img/default_user.jpg'
+import tmp_image from '../../assets/img/default_user.jpg'
 
 import ChangePasswordModal from '../../views/MyProfile/ChangePasswordModal';
+import { setProfileStore } from '../../actions/homepage';
 
 
 const propTypes = {
@@ -23,17 +27,27 @@ class DefaultHeader extends Component {
         show:false,
       };
        this.handleShow                =  this.handleShow.bind(this);
-      }
-
-  handleShow(){
+    }
+    
+  handleShow(evt){
+    evt.preventDefault();
     this.setState({ show:true });
   }
 
+componentDidMount() {
+  this.props.setProfileStore(); 
+}
   render() {
-
-    // eslint-disable-next-line
     const { children, ...attributes } = this.props;
+    var default_user = '';
+    let saveProPic = localStorage.getItem('profile_pics');
+    if (saveProPic!== '' && saveProPic!== undefined) {
+      default_user = saveProPic;
+    }else{
+      default_user = tmp_image;   
+    }
 
+    
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -56,7 +70,7 @@ class DefaultHeader extends Component {
               </DropdownItem>
 
               <DropdownItem>
-               <a href="javascript:void(0);" onClick={this.handleShow}>
+               <a href="javascript:void(0);" onClick={(evt)=>this.handleShow(evt)}>
                 <i className="icon-user"></i> Change Password</a>
               </DropdownItem>
 
@@ -75,7 +89,16 @@ class DefaultHeader extends Component {
   }
 }
 
-DefaultHeader.propTypes = propTypes;
-DefaultHeader.defaultProps = defaultProps;
+DefaultHeader.propTypes = {
+    setProfileStore:PropTypes.func.isRequired,
+  }
 
-export default DefaultHeader;
+   function mapStateToProps(state) {
+    return {
+      saveProPic:state.save_profile.saveProPic,
+    };
+  }
+
+export default withRouter(connect(mapStateToProps,{setProfileStore} )(DefaultHeader));
+
+

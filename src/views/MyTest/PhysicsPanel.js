@@ -37,9 +37,12 @@ render() {
                 <li>Current Electricity</li>
              </ul>
             </td>
+
             <td>
-              <Link to={'./start-test'} style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</Link>
+              <i style={{color:'#4cae4c'}} class="fa fa-check-circle fa-2x"></i> Complete
             </td>
+
+
           </tr>
 
            <tr>
@@ -58,9 +61,9 @@ render() {
                 <li>Current Electricity</li>
              </ul>
             </td>
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
+             <td>
+                <button type="button" class="btn btn-danger" style={{borderColor: '#ff518a',backgroundColor:'#ff0054'}} >Incomplete</button>
+             </td>
           </tr>
 
            <tr>
@@ -80,7 +83,7 @@ render() {
              </ul>
             </td>
             <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
+              <Link to={'./start-test'} style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</Link>
             </td>
           </tr>
 

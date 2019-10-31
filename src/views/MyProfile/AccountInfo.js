@@ -46,7 +46,7 @@ render() {
                   <span>Password</span>
               </div>
               <div className="col-md-6 col-xl-6">
-                  <span>*********</span>
+                  <span>*******************</span>
               </div>
           </div>
           <hr />

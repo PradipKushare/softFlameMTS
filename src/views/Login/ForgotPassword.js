@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import MTSlogo from '../../assets/img/brand/MTS logo login.png';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+
+import { postForgotPassword } from '../../actions/homepage';
 
 class ForgotPassword extends Component {
     constructor(props) {
@@ -12,10 +16,11 @@ class ForgotPassword extends Component {
         myStyle:[],
         err_class :'',
         successMessage:'',
+        disableFlag:false,
 
      };
-       this._handleChange            = this._handleChange.bind(this);
-       this._handleValidate       =       this._handleValidate.bind(this);
+       this._handleChange             =       this._handleChange.bind(this);
+       this._handleValidate           =       this._handleValidate.bind(this);
     }
 
   _handleChange(evt) {
@@ -23,7 +28,7 @@ class ForgotPassword extends Component {
     if (evt.target.name == 'emailAddress') {
       err_emailAddress = '';
     }
-    this.setState({successMessage:'',myStyle:'',
+    this.setState({successMessage:'',myStyle:'',disableFlag:false,
                    err_class:'',err_emailAddress:err_emailAddress,
                   [evt.target.name]:evt.target.value });
 
@@ -40,19 +45,31 @@ class ForgotPassword extends Component {
    if (err_emailAddress !== '') {
     this.setState({ err_emailAddress: err_emailAddress });
    }else{
-    this.setState({ err_emailAddress: '' });
+    this.setState({ err_emailAddress: '',disableFlag:true });
     this._handleSubmit();
    }
 }
 
 _handleSubmit(){
-  let that = this;
-    that.setState({successMessage:'Password sent to your email address',
-                   myStyle:{color:'green',margin:'5px'},
-                   err_class :'col-md-12 alert alert-success text-center' });
-    setTimeout(function(){ 
-        that.props.history.push('/dashboard');},
-      2000);
+   let that = this;
+   let post_data = {
+         email:this.state.emailAddress,
+      }
+      that.props.postForgotPassword(post_data).then(response => { 
+        if (response.data.success) {
+            that.setState({successMessage:response.data.msg,
+                           myStyle:{color:'green',margin:'5px'},
+                           err_class :'col-md-12 alert alert-success text-center',
+                           disableFlag:true });
+        }else{
+          that.setState({successMessage:response.data.msg,
+                         myStyle:{color:'red',margin:'5px'},
+                         err_class :'col-md-12 alert alert-danger text-center',
+                         disableFlag:false });
+        }
+      }).catch(function (error) {
+        console.log(error);
+    }); 
 }
 
   render() {   
@@ -88,8 +105,8 @@ _handleSubmit(){
                         </div>
                         <div className="row" style={{marginTop:'30px'}}>
                           <div className="col-12">
-                              <button type="button" className="btn btn-success btn-flat m-b-30 m-t-30" 
-                                onClick={(evt)=>this._handleValidate(evt)}>reset Password</button>
+                              <button type="button" disabled={this.state.disableFlag} className="btn btn-success btn-flat m-b-30 m-t-30" 
+                                onClick={(evt)=>this._handleValidate(evt)}>Reset Password</button>
                           </div>
                         </div>
                     </div>
@@ -100,4 +117,8 @@ _handleSubmit(){
         }
     }
 
-export default ForgotPassword;
+    ForgotPassword.propTypes = {
+    postForgotPassword: PropTypes.func.isRequired,
+  }
+
+export default withRouter(connect(null, {postForgotPassword})(ForgotPassword));

@@ -53,7 +53,7 @@ class TestSolution extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {getTestData && getTestData.slice(0,this.state.takeNum).map((ques,index)=>(
+                  {getTestData && getTestData.map((ques,index)=>(
                     <tr key={index}>
                       <td>{++index}</td>
                     <td> 
@@ -64,7 +64,7 @@ class TestSolution extends Component {
                           {ques.options && ques.options.length > 0 && ques.options.map((option)=>(
                                <div className="col-12 option-buttons" key={option.option_id}>
                                 <label htmlFor={option.option_id} className="customCheckBox">
-                                  <span dangerouslySetInnerHTML={{__html: option.option}}></span>
+                                  <span dangerouslySetInnerHTML={{__html: option.option}} className="ques-desc" style={{display:'inline-block;'}}></span>
                                   <input type="radio" 
                                          name="radio_1" 
                                          id={option.option_id}
@@ -73,7 +73,7 @@ class TestSolution extends Component {
                                          onChange={(evt) => {this._changeRadio(evt,option.is_correct)}} /> 
                                   <span className="checkmark"></span>
                                   {option.is_correct === 'YES' &&
-                                    <button className="btn btn-info btn-xs check-btn">Correct Answer</button>}
+                                    <button className="btn btn-info btn-xs check-btn" style={{marginLeft:'10px'}}>Correct Answer</button>}
                                 </label>
                               </div>))}
                           </div>
