@@ -112,7 +112,7 @@ handleClose(){
 render() {   
     return(  
       <React.Fragment>       
-          <Modal show={this.state.show} onHide={this.handleClose} backdrop="true" className="password-modal">
+          <Modal show={this.state.show} onHide={this.handleClose} backdrop={true} className="password-modal">
             <Modal.Header closeButton>
               <Modal.Title>
               <div className="panel-heading">

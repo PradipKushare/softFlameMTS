@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MTSlogo from '../../assets/img/brand/MTS logo login.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { postResetPassword } from '../../actions/homepage';
 
@@ -37,10 +37,10 @@ class ResetPassword extends Component {
     var err_password = this.state.err_password;
     var err_confirm_password = this.state.err_confirm_password;
 
-    if (evt.target.name == 'password') {
+    if (evt.target.name === 'password') {
       err_password = '';
     }
-      if (evt.target.name == 'confirm_password') {
+      if (evt.target.name === 'confirm_password') {
       err_confirm_password = '';
     }
     this.setState({successMessage:'',myStyle:'',
@@ -52,8 +52,7 @@ class ResetPassword extends Component {
 
  _handleValidate(evt){
   var err_password = '';
-  var err_confirm_password ='';
-    if (this.state.password == '') {
+    if (this.state.password === '') {
       err_password = 'Please Enter Valid Password';
     }
 

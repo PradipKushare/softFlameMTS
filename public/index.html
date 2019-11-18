@@ -11,30 +11,7 @@
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script> 
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"></link>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-
-<script>
-    $(document).ready(function () {
-      setTimeout(function(){ 
-  var color_array = ['#ffbc34', '#f62d51', '#55ce63'];
-   Morris.Donut({
-    element: 'browsers_chart',
-    data   : [
-        {"label":"Left Questions","value":14},
-        {"label":"Wrong Questions","value":1},
-        {"label":"Right Questions","value":0}],
-    colors: color_array
-  });
-     }, 400);
-});
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -45,6 +22,8 @@
       // React.js ID
       gtag('config', 'UA-118965717-6');
     </script>
+
+
   </head>
   <body>
     <noscript>

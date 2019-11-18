@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { uploadProfilePics,getProfilePic,setProfileStore } from '../../actions/homepage';
 
 var configData = require('../config.js');
@@ -13,7 +13,6 @@ class ChangeProfilePic extends Component {
       this.state = { 
         file: '',
         profilepic: '',
-        profilepic:'',
       };
        this._onClick               =      this._onClick.bind(this);
        this._getProfilePics        =      this._getProfilePics.bind(this); 

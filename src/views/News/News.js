@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Card} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { getNewsData } from '../../actions/homepage';
 
@@ -73,13 +73,13 @@ render() {
           </div>
         </div>))}
 
-      {newsData.length == 0 &&
+      {newsData.length === 0 &&
        <div className="row">
           <div className="col-xl-12 mb-4">
             <Card className="news-card">  
               <Card.Body>
                 <div className="col-12">
-                  <span className="text-center">{this.state.loadingText}</span>
+                  <span className="text-center">{loadingText}</span>
                 </div>
               </Card.Body>
             </Card>

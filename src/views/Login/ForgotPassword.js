@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MTSlogo from '../../assets/img/brand/MTS logo login.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { postForgotPassword } from '../../actions/homepage';
 
@@ -25,7 +25,7 @@ class ForgotPassword extends Component {
 
   _handleChange(evt) {
     var err_emailAddress = this.state.err_emailAddress;
-    if (evt.target.name == 'emailAddress') {
+    if (evt.target.name === 'emailAddress') {
       err_emailAddress = '';
     }
     this.setState({successMessage:'',myStyle:'',disableFlag:false,
@@ -36,9 +36,8 @@ class ForgotPassword extends Component {
 
  _handleValidate(evt){
   var err_emailAddress = '';
-  var reWhiteSpace = new RegExp(/^\s+$/);
   var regEmail = /(.+)@(.+){2,}\.(.+){2,}/;
-  if (regEmail.test(this.state.emailAddress) == false){
+  if (regEmail.test(this.state.emailAddress) === false){
       err_emailAddress = 'Please Enter Valid Email Address';
    }
 

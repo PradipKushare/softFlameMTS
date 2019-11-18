@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MTSlogo from '../../assets/img/brand/MTS logo login.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 
 import { postLogin } from '../../actions/homepage';
@@ -12,6 +12,7 @@ import CustomLoader from '../sub_parts/CustomLoader';
 var configPath = require('../config.js');
 var recaptcha_siteKey = configPath.recaptcha_siteKey;
 var recaptcha_secreatKey = configPath.recaptcha_secreatKey;
+var img_chrome_path = configPath.img_chrome_path;
 
 class Login extends Component {
     constructor(props) {
@@ -44,10 +45,10 @@ class Login extends Component {
   _handleChange(evt) {
     var err_emailAddress = this.state.err_emailAddress;
     var err_password = this.state.err_password;
-    if (evt.target.name == 'emailAddress') {
+    if (evt.target.name === 'emailAddress') {
       err_emailAddress = '';
     }
-    if (evt.target.name == 'password') {
+    if (evt.target.name === 'password') {
       err_password = '';
     }
     this.setState({successMessage:'',myStyle:'',
@@ -62,10 +63,10 @@ class Login extends Component {
   var err_captchaState = '';
 
   var regEmail = /(.+)@(.+){2,}\.(.+){2,}/;
-  if (regEmail.test(this.state.emailAddress) == false){
+  if (regEmail.test(this.state.emailAddress) === false){
       err_emailAddress = 'Please Enter Valid Email Address';
    }
-   if (this.state.password == '') {
+   if (this.state.password === '') {
       err_password = 'Please Enter Valid Password';
    }
    // if (this.state.captchaState == '') {
@@ -99,8 +100,13 @@ _handleSubmit(){
                            err_class :'col-md-12 alert alert-success text-center' });
 
             var student_name = response.data.data.firstname+' '+response.data.data.lastname;
+            var profile_pics = img_chrome_path+response.data.data.profilepic;
          localStorage.setItem('sess_user_id',response.data.user_id);
          localStorage.setItem('student_name',student_name);
+         localStorage.setItem('profile_pics',profile_pics);
+         localStorage.setItem('token',response.data.token);
+
+
 
         setTimeout(function(){ 
             that.props.history.push('/dashboard');},

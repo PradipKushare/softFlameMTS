@@ -42,7 +42,7 @@ class DefaultLayout extends Component {
   }
   render() {
     let dispFlag = false;
-    let tmp_paths = ['login','register','forgot-password','start-test','reset-password']
+   let tmp_paths = ['login','register','forgot-password','start-test','reset-password','take_test/questions','take_test/test_summary']
     const pathname = window.location.href;
     for (var i = 0; i < tmp_paths.length; i++) {
       if (pathname.includes('/'+tmp_paths[i])) {
@@ -50,6 +50,10 @@ class DefaultLayout extends Component {
           document.body.classList.add('bg_darck');
         }else{
           document.body.classList.remove('bg_darck');  
+        }
+
+        if (tmp_paths[i] == 'take_test/questions') {
+          document.body.classList.add('bg_darck_test_page');
         }
       }
 

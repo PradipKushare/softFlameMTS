@@ -1,129 +1,55 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
+import { SortDate } from './HelperFunction'
+import  ColumnClick  from './ColumnClick'
+
 class MathematicsPanel extends Component {
 render() {   
- 
+  let { getTestData,initLoading } = this.props;
     return(  
-    <React.Fragment>
+        <React.Fragment>
       <Table bordered hover className="dataTable">
         <thead>
           <tr>
-            <th>Sr.No.</th>
-            <th>Exam Name</th>
-            <th>Published On</th>
-            <th>Subjects</th>
-            <th>Topic</th>
-            <th>Action</th>
+            <ColumnClick />
 
           </tr>
         </thead>
         <tbody>
 
-          <tr>
-            <td>1</td>
-
+        {getTestData && getTestData.length > 0 && getTestData.map((data,index)=>(
+          <tr key={index}>
+            <td>{++index}</td>
             <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>Current Electricity</strong><br />
-            Total Marks: 60 <br />
-            Test Duration: 25 Minutes</td>
+                <strong style={{color:'#069'}}>{data.examName}</strong><br />
+            Total Marks: {data.totalMarks} <br />
+            Test Duration: {data.testDuration} Minutes</td>
 
-            <td>15 Oct 2019</td>
-            <td>Physics</td>
+             <td>{SortDate(data.publishedOn)}</td>
+            <td>{data.subjects}</td>
 
             <td>
               <ul>
-                <li>Current Electricity</li>
+                <li>{data.topic}</li>
              </ul>
             </td>
+
+        {/*<td>
+              <i style={{color:'#4cae4c'}} class="fa fa-check-circle fa-2x"></i> Complete
+          </td>*/}
+
             <td>
               <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
             </td>
-          </tr>
 
-           <tr>
-            <td>2</td>
+          </tr>))}
 
-            <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>Current Electricity</strong><br />
-            Total Marks: 60 <br />
-            Test Duration: 25 Minutes</td>
-
-            <td>15 Oct 2019</td>
-            <td>Physics</td>
-
-            <td>
-              <ul>
-                <li>Current Electricity</li>
-             </ul>
+        {getTestData.length == 0 &&
+         <tr>
+             <td colSpan="6" className="text-center" style={{fontSize:'1.2em',background:'#FFFFFF',color:'#000'}}>{initLoading}
             </td>
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
-          </tr>
-
-           <tr>
-            <td>3</td>
-
-            <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>Current Electricity</strong><br />
-            Total Marks: 60 <br />
-            Test Duration: 25 Minutes</td>
-
-            <td>15 Oct 2019</td>
-            <td>Physics</td>
-
-            <td>
-              <ul>
-                <li>Current Electricity</li>
-             </ul>
-            </td>
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
-          </tr>
-
-           <tr>
-            <td>4</td>
-
-            <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>Current Electricity</strong><br />
-            Total Marks: 60 <br />
-            Test Duration: 25 Minutes</td>
-
-            <td>15 Oct 2019</td>
-            <td>Physics</td>
-
-            <td>
-              <ul>
-                <li>Current Electricity</li>
-             </ul>
-            </td>
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
-          </tr>
-
-           <tr>
-            <td>5</td>
-
-            <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>Current Electricity</strong><br />
-            Total Marks: 60 <br />
-            Test Duration: 25 Minutes</td>
-
-            <td>15 Oct 2019</td>
-            <td>Physics</td>
-
-            <td>
-              <ul>
-                <li>Current Electricity</li>
-             </ul>
-            </td>
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
-          </tr>
-         
+          </tr>}
+  
         </tbody>
       </Table>
      </React.Fragment>

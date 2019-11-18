@@ -20,7 +20,7 @@ render() {
         <tbody>
 
           <tr>
-             <td colspan="7" className="text-center" style={{fontSize:'1.2em',background:'#FFFFFF',color:'#000'}}>No data available in table
+             <td colSpan="7" className="text-center" style={{fontSize:'1.2em',background:'#FFFFFF',color:'#000'}}>No data available in table
             </td>
           </tr>
         </tbody>

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {Card} from 'react-bootstrap';
-
 import { CircularProgressbar,buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import DonutChart from "react-svg-donut-chart";
 
- import DonutChart from "react-svg-donut-chart"
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { getDashboardData } from '../../actions/homepage';
 
 import $ from 'jquery';
 
@@ -12,32 +15,52 @@ class ChartSection extends Component {
     constructor(props) {
       super(props);
       this.state = { 
-         percentage_1 : 87,
-         percentage_2 : 71,
-         percentage_3 : 68,
-         percentage_4 : 81,
-      }
-     }
+         loadingText:'Loading data please wait.......',
+         dataPie:[],
+         testGiven:'0%',
+         testPerformance:'0%',
+         questionTime:'0%',
 
-componentDidMount() {
-/*let browsersChart = null;
+      };
+      this._getDashboardData     =     this._getDashboardData.bind(this);
+    }
 
-console.log('EEEEEEEEEEEEEEEE')
-  var color_array = ['#03658C', '#7CA69E', '#F2594A', '#F28C4B', '#7E6F6A', '#36AFB2', '#9c6db2', '#d24a67', '#89a958', '#00739a', '#BDBDBD'];
-   browsersChart = Morris.Donut({
-    element: 'browsers_chart',
-    data   : [{"label":"Chrome","value":423},{"label":"Safari","value":75},{"label":"Firefox","value":147},{"label":"Android Browser","value":5},{"label":"Opera Next","value":4}],
-    colors: color_array
-  });*/
+_getDashboardData(){
+ let that = this;
+  that.props.getDashboardData().then(response => { 
+      if (response.data.success) {
+   let dataPie = [
+      {value: response.data.data.testOverview[0].remainQuestion, stroke: "#DC143C", strokeWidth: 6},
+      {value: response.data.data.testOverview[0].rightQuestion, stroke: "#32CD32"},
+      {value: response.data.data.testOverview[0].wrongQuestion, stroke: "#00BFFF"}];
+
+           that.setState({ testGiven:response.data.data.testGiven,
+                           testPerformance:response.data.data.testPerformance,
+                           questionTime:response.data.data.questionTime,
+                           dataPie:dataPie });
+        }else{
+          that.setState({ testGiven:'',testPerformance:'',
+                          questionTime:'',dataPie:[],
+                          loadingText:'Data not available....'});
+        }
+     }).catch(function (error) {
+  console.log(error);
+}); 
 }
 
+  componentDidMount() {
+     this._getDashboardData(); 
+  }
+
 render() {   
+ let { testGiven,testPerformance,questionTime,loadingText,dataPie } = this.state;  
+/*let tmp_name = getDashboardData.testOverview;
 
     const dataPie = [
-    {value: 14, stroke: "#DC143C", strokeWidth: 6},
-    {value: 2, stroke: "#32CD32"},
-    {value: 1, stroke: "#00BFFF"},
-  ]
+    {value: tmp_name.remainQuestion, stroke: "#DC143C", strokeWidth: 6},
+    {value: tmp_name.rightQuestion, stroke: "#32CD32"},
+    {value: tmp_name.wrongQuestion, stroke: "#00BFFF"},
+  ]*/
 
 
 
@@ -50,8 +73,8 @@ render() {
                     <div className="col-md-3">
                         <Card style={{ width: '18rem' }}>  
                           <Card.Body>
-                          <CircularProgressbar value={this.state.percentage_1} 
-                                               text={this.state.percentage_1+'%'}
+                          <CircularProgressbar value={testGiven} 
+                                               text={testGiven+'%'}
                                                styles={buildStyles({textColor: '#f88'})}/>
                           <hr />
                             <Card.Text style={{textAlign:'center'}}>
@@ -65,8 +88,8 @@ render() {
                     <div className="col-md-3">
                         <Card style={{ width: '18rem' }}>  
                           <Card.Body>
-                          <CircularProgressbar value={this.state.percentage_2} 
-                                               text={this.state.percentage_2+'%'} 
+                          <CircularProgressbar value={testPerformance} 
+                                               text={testPerformance+'%'} 
                                                styles={buildStyles({textColor: 'green'})}/>
                           <hr />
                             <Card.Text style={{textAlign:'center'}}>
@@ -79,8 +102,8 @@ render() {
                     <div className="col-md-3">
                         <Card style={{ width: '18rem' }}>  
                           <Card.Body>
-                          <CircularProgressbar value={this.state.percentage_3} 
-                                               text={this.state.percentage_3+'%'}
+                          <CircularProgressbar value={questionTime} 
+                                               text={questionTime+'%'}
                                                styles={buildStyles({textColor: 'cyan'})} />
                           <hr />
                             <Card.Text style={{textAlign:'center'}}>
@@ -125,4 +148,8 @@ render() {
     }
 
 
-export default ChartSection;
+ChartSection.propTypes = {
+    getDashboardData: PropTypes.func.isRequired,
+  }
+
+export default withRouter(connect(null, {getDashboardData})(ChartSection));

@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {getProfileInfo, postProfileInfo } from '../../actions/homepage';
 import "react-datepicker/dist/react-datepicker.css"; 
 import { CountryDropdown } from 'react-indian-state-region-selector';

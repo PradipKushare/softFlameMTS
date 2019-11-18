@@ -3,7 +3,7 @@ import {  UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav,
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 
 
 import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';

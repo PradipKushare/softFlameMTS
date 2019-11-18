@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CountryDropdown } from 'react-indian-state-region-selector';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {  BrowserRouter as Router, Link, Route, Redirect,Switch,withRouter } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 
 import CustomLoader from '../sub_parts/CustomLoader';
 
@@ -76,41 +76,40 @@ class Register extends Component {
     var err_stateName = this.state.err_stateName;
     var err_pinCode = this.state.err_pinCode;
     var err_mobileNumber = this.state.err_mobileNumber;
-    var err_emailAddress = this.state.err_emailAddress;
     var err_password = this.state.err_password;
     var err_confirmPassword = this.state.err_confirmPassword;
     var err_birthdate = this.state.err_birthdate;
     var err_districtName = this.state.err_districtName;
 
 
-    if (evt.target.name == 'firstName') {
+    if (evt.target.name === 'firstName') {
       err_firstName = '';
     }
-    if (evt.target.name == 'lastName') {
+    if (evt.target.name === 'lastName') {
       err_lastName = '';
     }
-     if (evt.target.name == 'address') {
+     if (evt.target.name === 'address') {
       err_address = '';
     }
-    if (evt.target.name == 'stateName') {
+    if (evt.target.name === 'stateName') {
       err_stateName = '';
     }
-    if (evt.target.name == 'districtName') {
+    if (evt.target.name === 'districtName') {
       err_districtName = '';
     }
-    if (evt.target.name == 'pinCode') {
+    if (evt.target.name === 'pinCode') {
       err_pinCode = '';
     }
-     if (evt.target.name == 'mobileNumber') {
+     if (evt.target.name === 'mobileNumber') {
       err_mobileNumber = '';
     }
-    if (evt.target.name == 'password') {
+    if (evt.target.name === 'password') {
       err_password = '';
     }
-    if (evt.target.name == 'confirmPassword') {
+    if (evt.target.name === 'confirmPassword') {
       err_confirmPassword = '';
     }
-    if (evt.target.name == 'birthdate') {
+    if (evt.target.name === 'birthdate') {
       err_birthdate = '';
     }
 
@@ -140,39 +139,38 @@ class Register extends Component {
   var err_mobileNumber = '';
   var err_emailAddress = '';
   var err_password = '';
-  var err_confirmPassword = '';
   var err_birthdate = '';
   var reWhiteSpace = new RegExp(/^\s+$/);
   var regEmail = /(.+)@(.+){2,}\.(.+){2,}/;
 
-     if (this.state.firstName == '' || reWhiteSpace.test(this.state.firstName) == true) {
+     if (this.state.firstName === '' || reWhiteSpace.test(this.state.firstName) === true) {
       err_firstName = 'Enter your first name';
    }
-      if (this.state.lastName == '' || reWhiteSpace.test(this.state.lastName) == true) {
+      if (this.state.lastName === '' || reWhiteSpace.test(this.state.lastName) === true) {
       err_lastName = 'Enter your last name';
    }
-      if (this.state.address == '' || reWhiteSpace.test(this.state.address) == true) {
+      if (this.state.address === '' || reWhiteSpace.test(this.state.address) === true) {
       err_address = 'Enter your address';
    }
-      if (this.state.stateName == '' || reWhiteSpace.test(this.state.stateName) == true) {
+      if (this.state.stateName === '' || reWhiteSpace.test(this.state.stateName) === true) {
       err_stateName = 'Please enter your state name';
    }
-      if (this.state.districtName == '' || reWhiteSpace.test(this.state.districtName) == true) {
+      if (this.state.districtName === '' || reWhiteSpace.test(this.state.districtName) === true) {
       err_districtName = 'Enter your district name';
    }
-      if (this.state.pinCode == '' || this.state.pinCode.length < 6) {
+      if (this.state.pinCode === '' || this.state.pinCode.length < 6) {
       err_pinCode = 'Enter valid 6 Digit Pincode';
    }
-      if (this.state.mobileNumber == '' || this.state.mobileNumber.length < 10) {
+      if (this.state.mobileNumber === '' || this.state.mobileNumber.length < 10) {
       err_mobileNumber = 'Enter valid 10 Digit Pincode';
    }
-      if (regEmail.test(this.state.emailAddress) == true){
+      if (regEmail.test(this.state.emailAddress) === false){
       err_emailAddress = 'enter valid email address';
    }
-      if (this.state.password == '') {
+      if (this.state.password === '') {
       err_password = 'Please Enter Valid Password';
    }
-     if (this.state.birthdate == '' || reWhiteSpace.test(this.state.birthdate) == true) {
+     if (this.state.birthdate === '' || reWhiteSpace.test(this.state.birthdate) === true) {
       err_birthdate = 'Select your birthdate';
    }
 

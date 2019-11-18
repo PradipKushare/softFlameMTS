@@ -1,1 +1,3 @@
 export const SAVE_PROFILE_PIC = 'SAVE_PROFILE_PIC';
+
+export const SAVE_QUES_STORE = 'SAVE_QUES_STORE';

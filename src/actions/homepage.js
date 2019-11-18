@@ -1,8 +1,5 @@
-import axios from 'axios';
-import {SAVE_PROFILE_PIC} from './types';
-
+import {SAVE_PROFILE_PIC,SAVE_QUES_STORE} from './types';
 var configData = require('../views/config.js');
-var ApiPath = configData.ApiPath;
 var Api = configData.Api;
 
 export function postRegister(data) {
@@ -59,9 +56,55 @@ export function changePassword(data) {
   }
 }
 
-export function getNewsData(data) {
+export function getNewsData() {
   return dispatch => {
-    return Api.get('news/get_news_data',data);
+    return Api.get('news/get_news_data');
+  }
+}
+
+export function getDashboardData() {
+  return dispatch => {
+    return Api.get('student/get_dashboard_data');
+  }
+}
+
+export function getTestData(data) {
+  return dispatch => {
+    return Api.post('student/get_test_data',data);
+  }
+}
+
+export function getTestreports(data) {
+  return dispatch => {
+    return Api.post('student/get_test_report',data);
+  }
+}
+
+export function getQuestionList(data) {
+  return dispatch => {
+    return Api.post('student/get_question_test_data',data);
+  }
+}
+
+export function postQuesData(data) {
+  return dispatch => {
+    return Api.post('student/save_question_ansewrs',data);
+  }
+}
+
+
+export function saveQuesStore(data,action) {
+  if (action == 'action') {
+  return dispatch => {
+  return dispatch({ type: SAVE_QUES_STORE,
+                    saveQuesStore : data });
+      };
+    }else{
+    return dispatch => {
+        var questionList = JSON.parse(localStorage.getItem('questionList')) || [];
+    return dispatch({ type: SAVE_QUES_STORE,
+                      saveQuesStore : questionList });
+    };
   }
 }
 
@@ -71,4 +114,3 @@ export function setProfileStore(profile_pics) {
        saveProPic : profile_pics
     };
 }
-
