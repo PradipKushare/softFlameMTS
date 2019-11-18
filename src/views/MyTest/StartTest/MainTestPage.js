@@ -9,6 +9,11 @@ import MainTestPageQuesPallet from './MainTestPageQuesPallet';
 import MainTestPageMiddleHeader from './MainTestPageMiddleHeader';
 import MainTestPagePanel from './MainTestPagePanel';
 
+import { SubmitQuesFuncClose } from './SubmitQuesStore';
+import { ClearQuesFunc } from './ClearQuesStorage';
+
+import { postQuesData } from '../../../actions/homepage';
+
 class MainTestPage extends Component {
     constructor(props) {
       super(props);
@@ -22,7 +27,8 @@ class MainTestPage extends Component {
   test_id = parsed.test_id ? parsed.test_id : test_id;
 
   let examData = JSON.parse(localStorage.getItem('examData'));
-  let examName = examData.examName
+  let examName = examData.examName;
+  let sess_user_id = localStorage.getItem('sess_user_id');
 
       this.state ={
           test_id:test_id,
@@ -32,6 +38,7 @@ class MainTestPage extends Component {
           toQues:parseInt(1),
           currentQues:[],
           totalQuestion:parseInt(0),
+          userId:sess_user_id,
 
           solvedQuestion:'',
           remainQuestion:'',
@@ -43,6 +50,8 @@ class MainTestPage extends Component {
      this._showNextQues             =   this._showNextQues.bind(this);
      this._showPrevQues             =   this._showPrevQues.bind(this);
      this._get_question_time        =   this._get_question_time.bind(this); 
+
+     this.onUnload = this.onUnload.bind(this);
   }
 
 _getQuestionList(evt){
@@ -52,11 +61,14 @@ _getQuestionList(evt){
    let post_data = {
             testId:this.state.test_id,
             subject:subject,
+            userId:this.state.userId
         }
 
       that.props.getQuestionList(post_data).then(response => { 
           if (response.data.success) {
-            var resData = response.data.data.map(function(el) {
+             var resData = response.data.data;
+
+/*            var resData = response.data.data.map(function(el) {
                 var o = Object.assign({}, el);
                       o.isMarked = 'no';
                       o.isAnswered = 'no';
@@ -68,7 +80,7 @@ _getQuestionList(evt){
 
 
                 return o;
-              })
+              })*/
 
             this._storeInLocal(resData, function(err,result){
               if(result){
@@ -97,12 +109,35 @@ _storeInLocal(data,callback){
    callback(null,{status:true});
 }
 
+
+  onUnload(event) { 
+    let that = this;
+      let post_data = SubmitQuesFuncClose();
+          that.props.postQuesData(post_data).then(response => { 
+            if (response.data.success) {
+              ClearQuesFunc(response.data.reportId);
+                window.open('http://localhost:3000/#/take-test','_blank');
+            }else{
+              console.log('failureeeeeeeee');
+            }
+          }).catch(function (error) {
+        console.log(error);
+      }); 
+
+        event.returnValue = window.open('http://localhost:3000/#/take-test', '_blank');
+    }
+
 componentDidMount() {
   this._getQuestionList();
 
   localStorage.setItem('currIndex',0);
   localStorage.setItem('prevIndex',0);
 
+  let tmp_paths = 'take_test/questions';
+    const pathname = window.location.href;
+     if (pathname.includes('/'+tmp_paths)) {
+      window.addEventListener("beforeunload", this.onUnload);
+  }
 }
 
   _get_question_time(questionTime){
@@ -180,6 +215,7 @@ componentWillReceiveProps(nextProps) {
 MainTestPage.propTypes = {
     getQuestionList: PropTypes.func.isRequired,
     saveQuesStore:PropTypes.func.isRequired,
+    postQuesData:PropTypes.func.isRequired,
 }
 
    function mapStateToProps(state) {
@@ -190,4 +226,4 @@ MainTestPage.propTypes = {
   }
 
 
-export default withRouter(connect(mapStateToProps, {getQuestionList,saveQuesStore})(MainTestPage));
+export default withRouter(connect(mapStateToProps, {getQuestionList,saveQuesStore,postQuesData})(MainTestPage));

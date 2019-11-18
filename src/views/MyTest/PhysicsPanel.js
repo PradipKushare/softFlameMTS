@@ -49,14 +49,20 @@ render() {
              </ul>
             </td>
 
-        {/*<td>
-              <i style={{color:'#4cae4c'}} class="fa fa-check-circle fa-2x"></i> Complete
-          </td>*/}
+             {data.testStatus == 0 &&
+            <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info" onClick={(evt)=>this._goStartTest(evt,data)}>
+            Start test </button>
+          </td>}
 
-          <td>
-            <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info" onClick={(evt)=>this._goStartTest(evt,data)}>Start test</button>
-          </td>
+           {data.testStatus == 1 &&
+            <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-danger" onClick={(evt)=>this._goStartTest(evt,data)}>
+            Incomplete </button>
+          </td>}
 
+           {data.testStatus == 2 &&
+              <td>
+                <i style={{color:'#4cae4c'}} className="fa fa-check-circle fa-2x"></i> Complete
+              </td>}
           </tr>))}
 
         {getTestData.length == 0 &&

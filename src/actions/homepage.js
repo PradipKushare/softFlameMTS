@@ -88,10 +88,9 @@ export function getQuestionList(data) {
 
 export function postQuesData(data) {
   return dispatch => {
-    return Api.post('student/save_question_ansewrs',data);
+    return Api.post('student/save_question_answers',data);
   }
 }
-
 
 export function saveQuesStore(data,action) {
   if (action == 'action') {

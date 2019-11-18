@@ -17,7 +17,7 @@ componentWillReceiveProps(nextProps) {
   let rightMarks = nextProps.testReport.rightMarks;
   let totalSum = parseInt(totalQuestions)*parseInt(rightMarks);
   let percent_val = totalMarks/totalSum*100;
-  this.setState({percentVal:percent_val.toFixed(2)+' %'});
+  this.setState({percentVal:percent_val.toFixed(2)});
 }
 
   render() {
