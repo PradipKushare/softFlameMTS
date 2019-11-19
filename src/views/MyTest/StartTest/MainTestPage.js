@@ -66,7 +66,10 @@ _getQuestionList(evt){
 
       that.props.getQuestionList(post_data).then(response => { 
           if (response.data.success) {
-             var resData = response.data.data;
+            var resData = response.data.data;
+            if (response.data.tmp_test) {
+              resData = response.data.data[0];
+            }
 
 /*            var resData = response.data.data.map(function(el) {
                 var o = Object.assign({}, el);
@@ -111,6 +114,7 @@ _storeInLocal(data,callback){
 
 
   onUnload(event) { 
+      event.preventDefault();
     let that = this;
       let post_data = SubmitQuesFuncClose();
           that.props.postQuesData(post_data).then(response => { 
@@ -136,7 +140,7 @@ componentDidMount() {
     var pageURL = window.location.href;
   var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
     if (lastURLSegment == this.state.test_id) {
-      //window.addEventListener("beforeunload", this.onUnload);
+      window.addEventListener("beforeunload", this.onUnload);
 
       console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSS')
     }

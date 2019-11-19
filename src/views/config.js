@@ -8,7 +8,7 @@ var recaptcha_secreatKey = '6LfJN78UAAAAABXzNE-yJNpce5xC2uODATJRX_QE';
 var Api = axios.create({
   baseURL: ApiPath,
   timeout: 100000,
-  headers: {'Content-Type': 'application/json',},
+  headers: {'Content-Type': 'application/json','Access-Control-Allow-Origin': '*'},
 });
 
 	var token = localStorage.getItem('token');
