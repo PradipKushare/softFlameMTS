@@ -69,13 +69,14 @@ class Login extends Component {
    if (this.state.password === '') {
       err_password = 'Please Enter Valid Password';
    }
-   // if (this.state.captchaState == '') {
-   //    err_captchaState = 'Captcha must be verified';
-   // }
+   if (this.state.captchaState == '') {
+      err_captchaState = 'Captcha must be verified';
+   }
 
-   if (err_emailAddress || err_password  !== '') {
+   if (err_emailAddress || err_password || err_captchaState !== '') {
     this.setState({ err_emailAddress: err_emailAddress,
                     err_password:err_password,
+                    err_captchaState:err_captchaState
                      });
    }else{
     this.setState({ err_emailAddress: '',
@@ -100,7 +101,13 @@ _handleSubmit(){
                            err_class :'col-md-12 alert alert-success text-center' });
 
             var student_name = response.data.data.firstname+' '+response.data.data.lastname;
-            var profile_pics = img_chrome_path+response.data.data.profilepic;
+            var profile_pics = '';
+            if (response.data.data.profilepic == undefined) {
+              profile_pics = img_chrome_path+'default_user.jpg';
+            }else{
+              profile_pics = img_chrome_path+response.data.data.profilepic;
+            }
+
          localStorage.setItem('sess_user_id',response.data.user_id);
          localStorage.setItem('student_name',student_name);
          localStorage.setItem('profile_pics',profile_pics);

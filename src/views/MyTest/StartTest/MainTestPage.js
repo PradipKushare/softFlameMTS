@@ -106,9 +106,9 @@ _getQuestionList(evt){
 
 _storeInLocal(data,callback){
   let isQuesLoaded = localStorage.getItem('isQuesLoaded');
-  if (isQuesLoaded !== 'yes') {
+ // if (isQuesLoaded !== 'yes') {
       localStorage.setItem('questionList',JSON.stringify(data));
-    }
+    //}
    callback(null,{status:true});
 }
 
@@ -120,7 +120,7 @@ _storeInLocal(data,callback){
           that.props.postQuesData(post_data).then(response => { 
             if (response.data.success) {
               ClearQuesFunc(response.data.reportId);
-                window.open('http://localhost:3000/#/take-test','_blank');
+               // window.open('http://localhost:3000/#/take-test','_blank');
             }else{
               console.log('failureeeeeeeee');
             }
@@ -144,12 +144,6 @@ componentDidMount() {
 
       console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSS')
     }
-
-/*  let tmp_paths = 'take_test/questions';
-    const pathname = window.location.href;
-     if (pathname.includes('/'+tmp_paths)) {
-      window.addEventListener("beforeunload", this.onUnload);
-  }*/
 }
 
   _get_question_time(questionTime){

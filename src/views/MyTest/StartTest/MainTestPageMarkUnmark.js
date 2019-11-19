@@ -41,7 +41,7 @@ componentWillReceiveProps(nextProps) {
 }
 
 componentDidMount() {
-   this._getMarkedQues(this.props.ques_id,this.props.isMarked);
+  this._getMarkedQues(this.props.ques_id,this.props.isMarked);
 }
 
 _markUnmark(evt,ques_id){

@@ -26,6 +26,10 @@ componentWillReceiveProps(nextProps) {
     if (percent_val.toFixed(2) > 33) {
         passStatus = true;
     }
+    if (!isNaN(percent_val)) {
+      percent_val = 0;
+    }
+
   this.setState({percentVal:percent_val.toFixed(2),negativeMarks:negativeMarks,
                  rightMarks:parseInt(rightMarks),totalMarks:parseInt(totalMarks),
                  totalQuestions:parseInt(totalQuestions),totalSum:parseInt(totalSum),

@@ -67,7 +67,7 @@ render() {
 
     return(  
         <React.Fragment>
-            <div className="wrapper">
+            <div className="container">
                 <div className="row">
 
                     <div className="col-md-3">

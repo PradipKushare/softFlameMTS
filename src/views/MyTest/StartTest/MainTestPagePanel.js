@@ -119,6 +119,7 @@ _get_question_time(time){
                             <div id="que">Q. {toQues}</div></td>
                           <td width="36%" align="center">
                             {this._get_question_time(ques.questionTime)}
+
                             <MainTestPageMarkUnmark ques_id={ques._id} isMarked={ques.isMarked} />
 
                         </td>

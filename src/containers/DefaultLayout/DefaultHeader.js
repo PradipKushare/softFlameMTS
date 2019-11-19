@@ -27,6 +27,15 @@ class DefaultHeader extends Component {
         show:false,
       };
        this.handleShow                =  this.handleShow.bind(this);
+       this._logout                   = this._logout.bind(this);
+    }
+
+    _logout(){
+      localStorage.removeItem('profile_pics');
+      localStorage.removeItem('sess_user_id');
+      localStorage.removeItem('student_name');
+      localStorage.removeItem('token');
+      
     }
     
   handleShow(evt){
@@ -75,7 +84,7 @@ componentDidMount() {
               </DropdownItem>
 
               <DropdownItem>
-                <Link to={'/login'}><i className="icon-logout"></i> Log Out</Link>
+                <Link to={'/login'} onClick={this._logout}><i className="icon-logout"></i> Log Out</Link>
               </DropdownItem>
 
             </DropdownMenu>
