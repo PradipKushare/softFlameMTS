@@ -80,7 +80,7 @@ _submitTest(evt){
           if (response.data.success) {
               ClearQuesFunc(response.data.reportId);
               var test_id = response.data.reportId;
-              that.props.history.push('./take_test/test_summary/'+test_id);
+              that.props.history.push('../test_summary/'+test_id);
           }else{
             console.log('failureeeeeeeee');
             }

@@ -158,6 +158,7 @@ render() {
             </Tabs>
             </div>
 
+            {getTestData.length > 0 &&
             <div className="row">
               <div className="col-12">
                 <span>Showing {this.state.activePage} of {filteredData.length} entries</span>
@@ -169,7 +170,8 @@ render() {
               totalItemsCount={6}
               onChange={this.handlePageChange}  />    
                </div>
-              </div>
+              </div>}
+              
              </Card.Body>
             </Card>
            </React.Fragment>

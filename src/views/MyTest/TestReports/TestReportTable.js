@@ -66,7 +66,7 @@ return(
 
                                 <td className="text-success">{testReport.rightMarks ? testReport.rightMarks : ''}</td>
                                 <td className="text-danger">{testReport.negativeMarks ? testReport.negativeMarks : ''}</td>
-                                <td className="text-info"><strong>{testReport.totalMarks ? testReport.totalMarks : ''} out of {this._getTotalMark(testReport.totalQuestions,testReport.rightMarks)}</strong></td>
+                                <td className="text-info"><strong>{testReport.totalMarks ? testReport.totalMarks : ''} out of {this._getTotalMark(testReport.totalQuestions,4)}</strong></td>
                                   </tr>
                               </tbody>
                               </table>

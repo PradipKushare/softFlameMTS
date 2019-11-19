@@ -44,10 +44,8 @@ _endTest(evt){
      if(window.confirm('Are you sure you want to submit your test ?')){
         that.props.postQuesData(post_data).then(response => { 
           if (response.data.success) {
-              //ClearQuesFunc(response.data.reportId);
+              ClearQuesFunc(response.data.reportId);
                var test_id = response.data.reportId;
-               console.log(test_id)
-               console.log(that.props.history)
               that.props.history.push('../test_summary/'+test_id);
           }else{
             console.log('failureeeeeeeee');
@@ -85,7 +83,6 @@ _isTick(tick){
     let {solvedQuestion,remainQuestion,markedQuestion} = this.props;
     let {questionTime} = this.state;
 
-    console.log(this.state.examTime);
 
     return(  
        <div className="test_middle_header border-0 page-heading">

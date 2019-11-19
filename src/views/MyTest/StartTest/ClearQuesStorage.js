@@ -10,7 +10,4 @@ export function ClearQuesFunc(reportId) {
   localStorage.removeItem('examData');
   localStorage.removeItem('questionTime');
   localStorage.removeItem('questionList');
-
-  localStorage.setItem('reportId',reportId);
-
 }

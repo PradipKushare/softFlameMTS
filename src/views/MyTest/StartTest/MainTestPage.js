@@ -133,17 +133,23 @@ componentDidMount() {
   localStorage.setItem('currIndex',0);
   localStorage.setItem('prevIndex',0);
 
-  let tmp_paths = 'take_test/questions';
+    var pageURL = window.location.href;
+  var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
+    if (lastURLSegment == this.state.test_id) {
+      //window.addEventListener("beforeunload", this.onUnload);
+
+      console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+    }
+
+/*  let tmp_paths = 'take_test/questions';
     const pathname = window.location.href;
      if (pathname.includes('/'+tmp_paths)) {
       window.addEventListener("beforeunload", this.onUnload);
-  }
+  }*/
 }
 
   _get_question_time(questionTime){
-    console.log('questionTime:'+questionTime);
-
-      this.setState({questionTime:questionTime});
+     this.setState({questionTime:questionTime});
   }
 
   _show_question(fromQues,toQues){

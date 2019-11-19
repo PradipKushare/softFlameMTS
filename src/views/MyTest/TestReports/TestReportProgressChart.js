@@ -20,7 +20,7 @@ componentWillReceiveProps(nextProps) {
   let rightMarks = nextProps.testReport.rightMarks;
   let totalMarks = nextProps.testReport.totalMarks;
   let totalQuestions = nextProps.testReport.totalQuestions;
-  let totalSum = parseInt(totalQuestions)*parseInt(rightMarks);
+  let totalSum = parseInt(totalQuestions)*parseInt(4);
   let percent_val = totalMarks/totalSum*100;
   let passStatus = false;
     if (percent_val.toFixed(2) > 33) {

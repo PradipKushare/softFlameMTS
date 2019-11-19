@@ -57,6 +57,13 @@ class DefaultLayout extends Component {
         }
       }
 
+      if (pathname.includes('/take_test/questions')) {
+         let examData = JSON.parse(localStorage.getItem('examData'));
+           if (examData == null ) {
+            window.location.href = 'http://localhost:3000/#/take-test';
+        }
+      }
+
     var default_user = '';
     let saveProPic = localStorage.getItem('profile_pics');
    if (saveProPic!== '' && saveProPic!== undefined) {

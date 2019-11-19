@@ -4,8 +4,22 @@ import { SortDate } from './HelperFunction'
 import  ColumnClick  from './ColumnClick'
 
 class ChecmistryPanel extends Component {
+    constructor(props){
+      super(props);
+      this.state = { 
+
+      };
+      this._goStartTest     =     this._goStartTest.bind(this);
+    }
+      _goStartTest(evt,data){
+      evt.preventDefault();
+      localStorage.setItem( 'examData', JSON.stringify(data));
+      this.props.history.push('/start-test');
+  }
+
 render() {   
    let { getTestData,initLoading } = this.props;
+  
     return(  
        <React.Fragment>
       <Table bordered hover className="dataTable">
@@ -34,13 +48,20 @@ render() {
              </ul>
             </td>
 
-        {/*<td>
-              <i style={{color:'#4cae4c'}} class="fa fa-check-circle fa-2x"></i> Complete
-          </td>*/}
+             {data.testStatus == 0 &&
+            <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info" onClick={(evt)=>this._goStartTest(evt,data)}>
+            Start test </button>
+          </td>}
 
-            <td>
-              <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info">Start test</button>
-            </td>
+           {data.testStatus == 1 &&
+            <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-danger" onClick={(evt)=>this._goStartTest(evt,data)}>
+            Incomplete </button>
+          </td>}
+
+           {data.testStatus == 2 &&
+              <td>
+                <i style={{color:'#4cae4c'}} className="fa fa-check-circle fa-2x"></i> Complete
+              </td>}
 
           </tr>))}
 

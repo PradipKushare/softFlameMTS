@@ -47,7 +47,6 @@ componentDidMount() {
 _markUnmark(evt,ques_id){
   let that = this;
   if (this.state.markUnmark == 'Mark For Review') {
-    console.log('ques_id:'+ques_id);
     that._getMarkedQues(ques_id,'yes');
   }else{
     that._getMarkedQues(ques_id,'no');
