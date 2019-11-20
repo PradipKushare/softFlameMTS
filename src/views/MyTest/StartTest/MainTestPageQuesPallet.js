@@ -47,7 +47,7 @@ _setReview(ques){
 }
 
   render() {   
-        let {questionList,examName} = this.props;
+        let {questionList,exam_name} = this.props;
 
 
     return(  
@@ -55,7 +55,7 @@ _setReview(ques){
           <div id="mCSB_1" className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style={{maxHeight: 'none'}} tabIndex="0">
             <div id="mCSB_1_container" className="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style={{position:'relative', top:'0',left:'0'}} dir="ltr">
           <div className="bg-default-color mb-2 questionname">
-              <strong>Name - {examName}</strong>
+              <strong>Name - {exam_name}</strong>
           </div>
           <div className="bg-default-color  mb-2 qpalletlabel">
               <p>Questions Pallet</p>

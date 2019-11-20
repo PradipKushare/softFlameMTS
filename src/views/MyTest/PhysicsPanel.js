@@ -44,12 +44,12 @@ render() {
           <tr key={index}>
             <td>{++index}</td>
             <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>{data.examName}</strong><br />
-            Total Marks: {data.totalMarks} <br />
-            Test Duration: {data.testDuration} Minutes</td>
+                <strong style={{color:'#069'}}>{data.exam_name}</strong><br />
+            Total Marks: {data.total_marks} <br />
+            Test Duration: {data.test_duration} Minutes</td>
 
-            <td>{SortDate(data.publishedOn)}</td>
-            <td>{data.subjects}</td>
+            <td>{SortDate(data.published_on)}</td>
+            <td>{data.subject}</td>
 
             <td>
               <ul>
@@ -57,20 +57,11 @@ render() {
              </ul>
             </td>
 
-             {data.testStatus == 0 &&
+             
             <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-info" onClick={(evt)=>this._goStartTest(evt,data)}>
             Start test </button>
-          </td>}
+          </td>
 
-           {data.testStatus == 1 &&
-            <td> <button style={{color:'#FFF',fontWeight:'bold'}} className="btn btn-danger" onClick={(evt)=>this._goIncompleteTest(evt,data,data._id)}>
-            Incomplete </button>
-          </td>}
-
-           {data.testStatus == 2 &&
-              <td>
-                <i style={{color:'#4cae4c'}} className="fa fa-check-circle fa-2x"></i> Complete
-              </td>}
           </tr>))}
 
         {getTestData.length == 0 &&

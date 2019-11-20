@@ -27,12 +27,12 @@ class MainTestPage extends Component {
   test_id = parsed.test_id ? parsed.test_id : test_id;
 
   let examData = JSON.parse(localStorage.getItem('examData'));
-  let examName = examData.examName;
+  let exam_name = examData.exam_name;
   let sess_user_id = localStorage.getItem('sess_user_id');
 
       this.state ={
           test_id:test_id,
-          examName:examName,
+          exam_name:exam_name,
           questionList:[],
           fromQues:parseInt(0),
           toQues:parseInt(1),
@@ -139,11 +139,11 @@ componentDidMount() {
 
     var pageURL = window.location.href;
   var lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    if (lastURLSegment == this.state.test_id) {
+ /*   if (lastURLSegment == this.state.test_id) {
       window.addEventListener("beforeunload", this.onUnload);
 
       console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSS')
-    }
+    }*/
 }
 
   _get_question_time(questionTime){
@@ -178,7 +178,7 @@ componentWillReceiveProps(nextProps) {
   }
 
   render() {   
-    let {quesNumbers,questionList,fromQues,toQues,optionIndex,currentQues,totalQuestion,examName,palletType,solvedQuestion,remainQuestion,markedQuestion,questionTime} = this.state;
+    let {quesNumbers,questionList,fromQues,toQues,optionIndex,currentQues,totalQuestion,exam_name,palletType,solvedQuestion,remainQuestion,markedQuestion,questionTime} = this.state;
 
 
     return(  
@@ -188,7 +188,7 @@ componentWillReceiveProps(nextProps) {
             <div className="container_full">
             <div className="container_full">
               <MainTestPageQuesPallet questionList={questionList} 
-                                      examName={examName} 
+                                      exam_name={exam_name} 
                                       getQuestionNum={this._show_question} />
 
                 <div className="content_wrapper">

@@ -35,12 +35,12 @@ render() {
           <tr key={index}>
             <td>{++index}</td>
             <td style={{width:'30%'}}>
-                <strong style={{color:'#069'}}>{data.examName}</strong><br />
-            Total Marks: {data.totalMarks} <br />
-            Test Duration: {data.testDuration} Minutes</td>
+                <strong style={{color:'#069'}}>{data.exam_name}</strong><br />
+            Total Marks: {data.total_marks} <br />
+            Test Duration: {data.test_duration} Minutes</td>
 
-             <td>{SortDate(data.publishedOn)}</td>
-            <td>{data.subjects}</td>
+             <td>{SortDate(data.published_on)}</td>
+            <td>{data.subject}</td>
 
             <td>
               <ul>

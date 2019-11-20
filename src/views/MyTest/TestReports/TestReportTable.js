@@ -8,8 +8,8 @@ class TestReportTable extends Component {
     super(props);
 }
 
-_getTotalMark(totalQuestions,rightMarks){
-    return parseInt(totalQuestions)*parseInt(rightMarks);
+_getTotalMark(total_questions,rightMarks){
+    return parseInt(total_questions)*parseInt(rightMarks);
 }
 
 render() {   
@@ -58,7 +58,7 @@ return(
                               </thead>
                               <tbody>
                                 <tr className="text-center">
-                                <td>{testReport.totalQuestions ? testReport.totalQuestions : ''}</td>
+                                <td>{testReport.total_questions ? testReport.total_questions : ''}</td>
                                 <td>{testReport.totalAttempt ? testReport.totalAttempt : ''}</td>
                                 <td>{testReport.leftQuestion ? testReport.leftQuestion : ''}</td>
                                 <td>{testReport.correctQuestion ? testReport.correctQuestion : ''}</td>
@@ -66,7 +66,7 @@ return(
 
                                 <td className="text-success">{testReport.rightMarks ? testReport.rightMarks : ''}</td>
                                 <td className="text-danger">{testReport.negativeMarks ? testReport.negativeMarks : ''}</td>
-                                <td className="text-info"><strong>{testReport.totalMarks ? testReport.totalMarks : ''} out of {this._getTotalMark(testReport.totalQuestions,4)}</strong></td>
+                                <td className="text-info"><strong>{testReport.total_marks ? testReport.total_marks : ''} out of {this._getTotalMark(testReport.total_questions,4)}</strong></td>
                                   </tr>
                               </tbody>
                               </table>

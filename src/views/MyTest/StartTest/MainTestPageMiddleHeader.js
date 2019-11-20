@@ -22,7 +22,7 @@ class MainTestPageMiddleHeader extends Component {
       let tmpexamTime = 0;
      var examInfoData = JSON.parse(localStorage.getItem('examData'));
        if (examInfoData !== null && examInfoData!== undefined) {
-         tmpexamTime = examInfoData.testDuration;
+         tmpexamTime = examInfoData.test_duration;
          tmpexamTime*=60000;
        }  
 

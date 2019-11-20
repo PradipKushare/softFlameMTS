@@ -8,8 +8,8 @@ class TestReportProgressChart extends Component {
       percentVal:0,
       negativeMarks:0,
       rightMarks:0,
-      totalMarks:0,
-      totalQuestions:0,
+      total_marks:0,
+      total_questions:0,
       totalSum:0,
       passStatus:false,
   }
@@ -18,10 +18,10 @@ class TestReportProgressChart extends Component {
 componentWillReceiveProps(nextProps) {
   let negativeMarks = nextProps.testReport.negativeMarks;
   let rightMarks = nextProps.testReport.rightMarks;
-  let totalMarks = nextProps.testReport.totalMarks;
-  let totalQuestions = nextProps.testReport.totalQuestions;
-  let totalSum = parseInt(totalQuestions)*parseInt(4);
-  let percent_val = totalMarks/totalSum*100;
+  let total_marks = nextProps.testReport.total_marks;
+  let total_questions = nextProps.testReport.total_questions;
+  let totalSum = parseInt(total_questions)*parseInt(4);
+  let percent_val = total_marks/totalSum*100;
   let passStatus = false;
     if (percent_val.toFixed(2) > 33) {
         passStatus = true;
@@ -31,13 +31,13 @@ componentWillReceiveProps(nextProps) {
     }
 
   this.setState({percentVal:percent_val.toFixed(2),negativeMarks:negativeMarks,
-                 rightMarks:parseInt(rightMarks),totalMarks:parseInt(totalMarks),
-                 totalQuestions:parseInt(totalQuestions),totalSum:parseInt(totalSum),
+                 rightMarks:parseInt(rightMarks),total_marks:parseInt(total_marks),
+                 total_questions:parseInt(total_questions),totalSum:parseInt(totalSum),
                  passStatus:passStatus});
 }
 
   render() {  
-    let {percentVal,negativeMarks,rightMarks,totalMarks,totalQuestions,totalSum,passStatus }  = this.state;
+    let {percentVal,negativeMarks,rightMarks,total_marks,total_questions,totalSum,passStatus }  = this.state;
 
   return(  
           <React.Fragment>
@@ -52,7 +52,7 @@ componentWillReceiveProps(nextProps) {
            </div>
 
            <div className="report-anyls-text text-center">      
-             <span style={{fontSize:'18px',color:'#17b3e8'}}>Total Marks:<strong> {totalMarks} </strong>out of {totalSum}</span><br /><br />
+             <span style={{fontSize:'18px',color:'#17b3e8'}}>Total Marks:<strong> {total_marks} </strong>out of {totalSum}</span><br /><br />
              <span style={{fontSize:'18px',color:'#17b3e8'}}>Percentage: <strong>{percentVal}%</strong></span>               
            </div>
 

@@ -1,12 +1,12 @@
 export function SubmitQuesFunc() {
-  let examName = '';
+  let exam_name = '';
   let subjects = '';
   let topic = '';
   let testId = '';
   let questionData = [];
   let examInfoData = JSON.parse(localStorage.getItem('examData'));
    if (examInfoData !== null && examInfoData!== undefined) {
-        examName = examInfoData.examName;
+        exam_name = examInfoData.exam_name;
         subjects = examInfoData.subjects;
         testId = examInfoData._id;
    }  
@@ -23,7 +23,7 @@ export function SubmitQuesFunc() {
    let leftQuestion = localStorage.getItem('remainQuestion'); 
    let markedQuestion = localStorage.getItem('markedQuestion'); 
    let remainingTime = localStorage.getItem('remainingTime'); 
-   let testName = examName
+   let testName = exam_name
    let subjectName = subjects;
    let quesArr = questionData;
    let testStatus = 2;
@@ -48,14 +48,14 @@ export function SubmitQuesFunc() {
 }
 
 export function SubmitQuesFuncClose() {
-  let examName = '';
+  let exam_name = '';
   let subjects = '';
   let topic = '';
   let testId = '';
   let questionData = [];
   let examInfoData = JSON.parse(localStorage.getItem('examData'));
    if (examInfoData !== null && examInfoData!== undefined) {
-        examName = examInfoData.examName;
+        exam_name = examInfoData.exam_name;
         subjects = examInfoData.subjects;
         testId = examInfoData._id;
    }  
@@ -72,7 +72,7 @@ export function SubmitQuesFuncClose() {
    let leftQuestion = localStorage.getItem('remainQuestion'); 
    let markedQuestion = localStorage.getItem('markedQuestion'); 
    let remainingTime = localStorage.getItem('remainingTime'); 
-   let testName = examName
+   let testName = exam_name
    let subjectName = subjects;
    let quesArr = questionData;
    let testStatus = 1;

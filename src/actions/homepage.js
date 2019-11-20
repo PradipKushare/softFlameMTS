@@ -74,17 +74,31 @@ export function getTestData(data) {
   }
 }
 
+export function getUserTestData(data) {
+  return dispatch => {
+    return Api.post('test_list/get_user_test_data',data);
+  }
+}
+
 export function getTestreports(data) {
   return dispatch => {
     return Api.post('student/get_test_report',data);
   }
 }
 
+/*export function getQuestionList(data) {
+  return dispatch => {
+    return Api.post('student/get_question_test_data',data);
+  }
+}
+*/
+
 export function getQuestionList(data) {
   return dispatch => {
     return Api.post('student/get_question_test_data',data);
   }
 }
+
 
 export function postQuesData(data) {
   return dispatch => {

@@ -19,7 +19,7 @@ import { withRouter } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import 'bootstrap-less/bootstrap/bootstrap.less';
 
-import { getTestData } from '../../actions/homepage';
+import { getUserTestData } from '../../actions/homepage';
 
 
 class MyTest extends Component {
@@ -56,12 +56,12 @@ class MyTest extends Component {
     this.setState({ searchKey: searchKey });
   }
      _getSortBy(sort_by){
-      this.setState({ sortBy: sort_by });
+      this.setState({dispItem:parseInt(3), sortBy: sort_by });
       this._getDashboardData(this.state.tmp_subject,sort_by,parseInt(1),this.state.dispItem)
      }
 
       _getDispBy(disp_item){
-      this.setState({ dispItem: disp_item });
+      this.setState({ dispItem: disp_item,activePage:parseInt(1) });
       this._getDashboardData(this.state.tmp_subject,this.state.sortBy,parseInt(1),disp_item)
      }
 
@@ -71,10 +71,11 @@ class MyTest extends Component {
             subject:subject,
             sort_by:sort_by,
             page_number:page_number,
-            per_page:disp_item
+            per_page:disp_item,
+            user_id:localStorage.getItem('sess_user_id')
         }
 
-        that.props.getTestData(post_data).then(response => { 
+        that.props.getUserTestData(post_data).then(response => { 
             if (response.data.success) {
                 that.setState({tmp_subject:subject, getTestData:response.data.data,initLoading:'' });
             }else{
@@ -180,7 +181,7 @@ render() {
     }
 
 MyTest.propTypes = {
-    getTestData: PropTypes.func.isRequired,
+    getUserTestData: PropTypes.func.isRequired,
   }
 
-export default withRouter(connect(null, {getTestData})(MyTest));
+export default withRouter(connect(null, {getUserTestData})(MyTest));

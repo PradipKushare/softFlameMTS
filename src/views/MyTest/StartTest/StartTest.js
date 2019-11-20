@@ -80,10 +80,10 @@ componentDidMount() {
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td align="center">{examInfoData.examName ? examInfoData.examName : ''}</td>
-                                                        <td align="center">{examInfoData.totalQuestions ? examInfoData.totalQuestions : ''}</td>
-                                                        <td align="center">{examInfoData.testDuration ? examInfoData.testDuration+ ' min' : ''}</td>
-                                                        <td align="center">{examInfoData.maximumMarks ? examInfoData.maximumMarks : ''}</td>
+                                                        <td align="center">{examInfoData.exam_name ? examInfoData.exam_name : ''}</td>
+                                                        <td align="center">{examInfoData.total_questions ? examInfoData.total_questions : ''}</td>
+                                                        <td align="center">{examInfoData.test_duration ? examInfoData.test_duration+ ' min' : ''}</td>
+                                                        <td align="center">{examInfoData.total_marks ? examInfoData.total_marks : ''}</td>
                                                     </tr>
                                                 </tbody>
 

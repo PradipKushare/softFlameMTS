@@ -12,11 +12,11 @@ class TestReportSpeedChart extends Component {
 }
 
 componentWillReceiveProps(nextProps) {
-  let totalMarks = nextProps.testReport.totalMarks;
-  let totalQuestions = nextProps.testReport.totalQuestions;
+  let total_marks = nextProps.testReport.total_marks;
+  let total_questions = nextProps.testReport.total_questions;
   let rightMarks = nextProps.testReport.rightMarks;
-  let totalSum = parseInt(totalQuestions)*parseInt(rightMarks);
-  let percent_val = totalMarks/totalSum*100;
+  let totalSum = parseInt(total_questions)*parseInt(rightMarks);
+  let percent_val = total_marks/totalSum*100;
   if (!isNaN(percent_val)) {
     percent_val = 0;
   }

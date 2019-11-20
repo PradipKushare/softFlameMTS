@@ -14,14 +14,14 @@ class TestReportPieChart extends Component {
 
       componentWillReceiveProps(nextProps) {
         if (nextProps.testReport) {
-          let totalQuestions = nextProps.testReport.totalQuestions;
+          let total_questions = nextProps.testReport.total_questions;
           let leftQuestion = nextProps.testReport.leftQuestion;
           let correctQuestion = nextProps.testReport.correctQuestion;
           let wrongQuestion = nextProps.testReport.wrongQuestion;
 
-         leftQuestion = leftQuestion/totalQuestions*100;
-         correctQuestion = correctQuestion/totalQuestions*100;
-         wrongQuestion = wrongQuestion/totalQuestions*100;
+         leftQuestion = leftQuestion/total_questions*100;
+         correctQuestion = correctQuestion/total_questions*100;
+         wrongQuestion = wrongQuestion/total_questions*100;
          
               let options = {
                   labels: ['Left', 'Right', 'Wrong'],
